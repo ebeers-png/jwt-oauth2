@@ -1,17 +1,11 @@
 # Imports from Django
 import django
-
-version = django.get_version()
-
-if version.startswith('2'):
-    from django.urls import include, re_path as url
-else:
-    from django.conf.urls import include, url
+from django.urls import include, re_path
 
 OAUTH_NAMESPACE = 'oauth2_provider'
 
 urlpatterns = [
-    url(
+    re_path(
         r'^oauth/',
         include('oauth2_jwt_provider.urls', namespace=OAUTH_NAMESPACE)
     )

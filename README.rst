@@ -62,7 +62,7 @@ Add OAuth2 Provider urls to your project urls.py
     .. code-block:: python
         urlpatterns = [
             ...
-            url(r'^oauth/', include('oauth2_jwt_provider.urls', namespace='oauth2_provider')),
+            re_path(r'^oauth/', include('oauth2_jwt_provider.urls', namespace='oauth2_provider')),
         ]
 
 **Sync your database**::

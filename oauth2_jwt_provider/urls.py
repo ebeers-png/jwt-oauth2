@@ -9,6 +9,7 @@ from __future__ import absolute_import, unicode_literals
 
 # Imports from Django
 import django
+from django.urls import include, re_path
 
 # Imports from Third Party Modules
 import oauth2_provider.views as oauth2_views
@@ -24,61 +25,54 @@ from oauth2_jwt_provider.views import (
     RestrictedAuthorizedTokensList,
 )
 
-version = django.get_version()
-
-if version.startswith('2'):
-    from django.urls import include, re_path as url
-else:
-    from django.conf.urls import include, url
-
 # OAuth2 provider endpoints
 urlpatterns = [
-    url(
+    re_path(
         r'^authorize/$',
         oauth2_views.AuthorizationView.as_view(),
         name="authorize"
     ),
-    url(
+    re_path(
         r'^token/$',
         oauth2_views.TokenView.as_view(),
         name="token"
     ),
-    url(
+    re_path(
         r'^revoke-token/$',
         oauth2_views.RevokeTokenView.as_view(),
         name="revoke-token"
     ),
-    url(
+    re_path(
         r'^applications/$',
         RestrictedApplicationList.as_view(),
         name="list"
     ),
-    url(
+    re_path(
         r'^applications/register/$',
         RestrictedApplicationRegistration.as_view(),
         name="register"
     ),
-    url(
+    re_path(
         r'^applications/(?P<pk>\d+)/$',
         RestrictedApplicationDetail.as_view(),
         name="detail"
     ),
-    url(
+    re_path(
         r'^applications/(?P<pk>\d+)/delete/$',
         RestrictedApplicationDelete.as_view(),
         name="delete"
     ),
-    url(
+    re_path(
         r'^applications/(?P<pk>\d+)/update/$',
         RestrictedApplicationUpdate.as_view(),
         name="update"
     ),
-    url(
+    re_path(
         r'^authorized-tokens/$',
         RestrictedAuthorizedTokensList.as_view(),
         name="authorized-token-list"
     ),
-    url(
+    re_path(
         r'^authorized-tokens/(?P<pk>\d+)/delete/$',
         RestrictedAuthorizedTokenDelete.as_view(),
         name="authorized-token-delete"
