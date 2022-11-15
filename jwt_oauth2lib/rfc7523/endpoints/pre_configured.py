@@ -16,14 +16,17 @@ from oauthlib.oauth2 import (
     TokenEndpoint,
 )
 from oauthlib.oauth2.rfc6749.grant_types import (
-    AuthCodeGrantDispatcher,
     AuthorizationCodeGrant,
     ClientCredentialsGrant,
     ImplicitGrant,
-    OpenIDConnectAuthCode,
-    OpenIDConnectImplicit,
     RefreshTokenGrant,
     ResourceOwnerPasswordCredentialsGrant,
+)
+# Updating from 2.0.3 to 3.2.2
+from oauthlib.openid.connect.core.grant_types import (
+    ImplicitGrant as OpenIDConnectImplicit,
+    AuthorizationCodeGrant as OpenIDConnectAuthCode,
+    AuthorizationCodeGrantDispatcher as AuthCodeGrantDispatcher
 )
 
 # Local Imports
@@ -68,8 +71,8 @@ class Server(AuthorizationEndpoint, TokenEndpoint, ResourceEndpoint,
         )
 
         auth_grant_choice = AuthCodeGrantDispatcher(
-            default_auth_grant=auth_grant,
-            oidc_auth_grant=openid_connect_auth
+            default_grant=auth_grant,
+            oidc_grant=openid_connect_auth
         )
 
         # See http://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#Combinations  # noqa
